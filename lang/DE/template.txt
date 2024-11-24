@@ -1,0 +1,65 @@
+[Section: general]
+
+############################
+### GENERAL TRANSLATIONS ###
+############################
+
+ADMINISTRATION: Administration
+APP_VERSION: Version
+BUG: Bug
+CANCEL: Abbrechen
+DELETE: Löschen
+EDIT: Bearbeiten
+EMAIL: E-Mail
+ENABLED: Aktiviert
+FEATURE: Feature
+INVALID_INPUT: Ungültige Eingabe
+LOADING: Lädt...
+LOGIN_FAILED: Fehler bei der Anmeldung
+LOGIN_SUCCESS: Anmeldung erfolgreich
+LOGOUT: Ausloggen
+LOGOUT_SUCCESS: Abmeldung erfolgreich
+MESSAGE: Nachricht
+NAME: Name
+NEW: Neu
+NEXT: Nächste
+NO_SELECTION: Keine Auswahl
+NOTIFICATIONS: Benachrichtigungen
+OKAY: Okay
+PASSWORD: Passwort
+PLCEHLDR_MAIL: email@adresse.at
+PREVIOUS: Vorherige
+PROGRESS: Modus
+REFRESH: Aktualisieren
+RESET_PASSWORD: Passwort zurücksetzen
+REVERT_CHANGES: Änderungen verwerfen
+SELECT: Auswählen
+SEND_NOTIFICATIONS: Benachrichtigungen senden
+SETTINGS: Einstellungen
+STATUS: Status
+SUBJECT: Betreff
+TIME: Zeitpunkt
+TITLE: spa.js
+UPDATE: Änderungen übernehmen
+UPDATE_SUCCESS: Änderungen übernommen.
+USER: Benutzer
+USER_FEEDBACK: Benutzerfeedback
+USERNAME: Benutzername
+
+############################
+### STATUS & ENUM VALUES ###
+############################
+
+
+###########################
+### PLUGIN TRANSLATIONS ###
+###########################
+
+[Section: demoView]
+AMOUNT: Menge
+BROKER: Broker
+INSTRUMENT_CODE: Währungspaar
+LANGUAGE_SELECTION: Sprachwahl
+PRICE: Preis
+SIDE: Ordertyp
+

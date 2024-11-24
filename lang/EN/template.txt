@@ -1,0 +1,69 @@
+[Section: general]
+
+############################
+### GENERAL TRANSLATIONS ###
+############################
+
+ADMINISTRATION: Administration
+APP_VERSION: Version
+BUG: Bug
+CANCEL: Cancel
+CATEGORY: Category
+CREATE: Create
+CREATED: Created
+DELETE: Delete
+EDIT: Edit
+EMAIL: Email
+ENABLED: Enabled
+FEATURE: Feature
+FORWARDING: Forwarding...
+INVALID_INPUT: Invalid input
+LOADING: Loading...
+LOGIN_FAILED: Error during login.
+LOGIN_SUCCESS: Login successful
+LOGOUT: Logout
+LOGOUT_SUCCESS: Logout successful
+MESSAGE: Message
+NAME: Name
+NEW: New
+NEXT: Next
+NO_SELECTION: No selection
+NOTIFICATIONS: Notifications
+OKAY: Okay
+PASSWORD: Password
+PLCEHLDR_MAIL: email@address.com
+PREVIOUS: Previous
+PROGRESS: Mode
+QUOTE: Quote
+REFRESH: Refresh
+RESET_PASSWORD: Reset password
+REVERT_CHANGES: Discard changes
+SELECT: Select
+SEND_NOTIFICATIONS: Send notifications
+SETTINGS: Settings
+STATUS: Status
+SUBJECT: Subject
+TIME: Point in time
+TITLE: spa.js
+UPDATE: Save changes
+UPDATE_SUCCESS: Changes saved.
+USER: User
+USER_FEEDBACK: User feedback
+USERNAME: Username
+
+############################
+### STATUS & ENUM VALUES ###
+############################
+
+
+###########################
+### PLUGIN TRANSLATIONS ###
+###########################
+
+[Section: demoView]
+AMOUNT: Amount
+BROKER: Broker
+INSTRUMENT_CODE: InstrumentCode
+LANGUAGE_SELECTION: Language selection
+PRICE: Price
+SIDE: Side
