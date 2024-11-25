@@ -16,7 +16,9 @@ html {
 
 html,
 body {
-    background: #F5F5F0;
+    /*border: 2px solid green;*/
+
+    background: #f9f7ec;
     color: #2f4050;
     /* font-family: Lato, Consolas; */
     font-family: "Fira Sans", sans-serif;
@@ -45,8 +47,6 @@ body {
 
     align-items: flex-start;
     flex-wrap: wrap;
-
-    /*border: 2px solid green;*/
 }
 
 footer {
@@ -138,6 +138,7 @@ main {
 }
 
 #container {
+    background-color: #f9f7ec;
     height: 100%;
     width: 100%;
 

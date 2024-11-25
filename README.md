@@ -1,2 +1,2 @@
-# repo.io
+# modules.io
 Slang module repository frontend
