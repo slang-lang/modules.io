@@ -1,0 +1,35 @@
+RewriteEngine On
+
+# rewrite api/v1/crates/index.os to /api/v1/crates/index.os?crate=$1
+RewriteCond %{QUERY_STRING} !(^|&)crate= [NC]
+RewriteRule ^api/v1/crates/index.os([^/]+)$ /api/v1/crates/?crate=$1 [QSA,L]
+
+# rewrite api/v1/crates/ to /api/v1/crates/?crate=$1
+RewriteCond %{QUERY_STRING} !(^|&)crate= [NC]
+RewriteRule ^api/v1/crates/([^/]+)$ /api/v1/crates/?crate=%1 [QSA,L]
+
+# Match URLs in the form /search/ with a query string parameter q=...
+RewriteCond %{QUERY_STRING} ^q=([^&]+) [NC]
+RewriteRule ^search/$ /api/v1/crates/?q=%1 [QSA,L]
+
+# rewrite crates/<crate-name> to /?q=$1
+RewriteCond %{QUERY_STRING} !(^|&)q= [NC]
+RewriteRule ^crates/([^/]+)$ /crates/?q=%1 [QSA,L]
+
+# Match URLs in the form /api/v1/crates/<crate-name>/versions
+RewriteRule ^api/v1/crates/([^/]+)/versions$ /crates/?crate=$1&versions [QSA,L]
+
+# Match URLs in the form crates/<crate-name>/versions
+RewriteRule ^crates/([^/]+)/versions$ /crates/?crate=$1&versions [QSA,L]
+
+# Match URLs in the form crates/<crate-name>/
+RewriteRule ^crates/([^/]+)/$ /crates/?crate=$1 [QSA,L]
+
+# Check if the referer matches a specific pattern (example.com)
+RewriteCond %{HTTP_REFERER} ^crates/([^/]+) [NC]
+RewriteCond %{QUERY_STRING} ^api/v1/versions/0 [NC]
+RewriteRule ^crates/([^/]+)/$ /api/v1/crates/?crate=$2 [QSA,L]
+
+# rewrite /crates/assets/ to /assets/
+RewriteCond %{QUERY_STRING} !crates/assets/ [NC]
+RewriteRule ^crates/assets/([^/]+)$ /assets/$1 [QSA,L]
