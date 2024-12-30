@@ -19,7 +19,7 @@ function OnLoadReady()
     Globals.Admin = false;
     Globals.Debug = false;
 
-    API.Constructor( "", "api", "https", "" );
+    API.Constructor( "", "api", "https", "v1" );
 }
 
 function OnLoginFailed( event )

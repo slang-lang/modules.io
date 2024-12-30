@@ -1,0 +1,559 @@
+<div id="plugin" class="plugin">
+    <div class="_inner-main_17u5gr _width-limit_17u5gr">
+        <div class="_header_81knqv _header_y99ls5">
+            <h1 class="_heading_y99ls5">
+                <span>quote</span>
+                <small>v1.0.38</small>
+            </h1>
+
+            <div class="_description_y99ls5">
+                Quasi-quoting macro quote!(...)
+            </div>
+
+            <ul class="_keywords_y99ls5">
+                <li>
+                    <a id="ember40" class="ember-view" href="/keywords/macros">
+                        <span class="_hash_y99ls5">#</span>macros
+                    </a>
+                </li>
+                <li>
+                    <a id="ember41" class="ember-view" href="/keywords/syn">
+                        <span class="_hash_y99ls5">#</span>syn
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <nav class="_nav_y99ls5" aria-label="quote crate subpages">
+            <ul class="_list_1mso79">
+                <li>
+                    <a class="_link_y1a82m _active_y1a82m" href="/crates/quote">
+                        Readme
+                    </a>
+                </li>
+                <li>
+                    <a class="_link_y1a82m" href="/crates/quote/versions">
+                        86 Versions
+                    </a>
+                </li>
+                <li>
+                    <a class="_link_y1a82m" href="/crates/quote/dependencies">
+                        Dependencies
+                    </a>
+                </li>
+                <li>
+                    <a class="_link_y1a82m" href="/crates/quote/reverse_dependencies">
+                        Dependents
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="_crate-info_1ph5zq">
+            <div class="_docs_1ph5zq">
+                <article aria-label="Readme">
+                    <div class="_wrapper_g1cur3">
+                        <h1><a href="#rust-quasi-quoting" id="user-content-rust-quasi-quoting"
+                                rel="nofollow noopener noreferrer"></a>Rust Quasi-Quoting</h1>
+                        <p><a href="https://github.com/dtolnay/quote" rel="nofollow noopener noreferrer"><img
+                                    alt="github"
+                                    src="https://img.shields.io/badge/github-dtolnay/quote-8da0cb?style=for-the-badge&amp;labelColor=555555&amp;logo=github"
+                                    height="20"></a>
+                            <a href="https://crates.io/crates/quote" rel="nofollow noopener noreferrer"><img
+                                    alt="crates.io"
+                                    src="https://img.shields.io/crates/v/quote.svg?style=for-the-badge&amp;color=fc8d62&amp;logo=rust"
+                                    height="20"></a>
+                            <a href="https://docs.rs/quote" rel="nofollow noopener noreferrer"><img alt="docs.rs"
+                                    src="https://img.shields.io/badge/docs.rs-quote-66c2a5?style=for-the-badge&amp;labelColor=555555&amp;logo=docs.rs"
+                                    height="20"></a>
+                            <a href="https://github.com/dtolnay/quote/actions?query=branch%3Amaster"
+                                rel="nofollow noopener noreferrer"><img alt="build status"
+                                    src="https://img.shields.io/github/actions/workflow/status/dtolnay/quote/ci.yml?branch=master&amp;style=for-the-badge"
+                                    height="20"></a>
+                        </p>
+                        <p>This crate provides the <a href="https://docs.rs/quote/1.0/quote/macro.quote.html"
+                                rel="nofollow noopener noreferrer"><code>quote!</code></a> macro for turning Rust syntax
+                            tree data
+                            structures into tokens of source code.</p>
+                        <p>Procedural macros in Rust receive a stream of tokens as input, execute arbitrary
+                            Rust code to determine how to manipulate those tokens, and produce a stream of
+                            tokens to hand back to the compiler to compile into the caller's crate.
+                            Quasi-quoting is a solution to one piece of that — producing tokens to
+                            return to the compiler.</p>
+                        <p>The idea of quasi-quoting is that we write <em>code</em> that we treat as <em>data</em>.
+                            Within the <code>quote!</code> macro, we can write what looks like code to our text editor
+                            or IDE. We get all the benefits of the editor's brace matching, syntax
+                            highlighting, indentation, and maybe autocompletion. But rather than compiling
+                            that as code into the current crate, we can treat it as data, pass it around,
+                            mutate it, and eventually hand it back to the compiler as tokens to compile into
+                            the macro caller's crate.</p>
+                        <p>This crate is motivated by the procedural macro use case, but is a
+                            general-purpose Rust quasi-quoting library and is not specific to procedural
+                            macros.</p>
+                        <pre>
+                            <code class="language-toml hljs language-ini" data-highlighted="yes">
+                                <span class="hljs-section">[dependencies]</span>
+                                <span class="hljs-attr">quote</span> = <span class="hljs-string">"1.0"</span>
+                            </code>
+                        </pre>
+                        <p><em>Version requirement: Quote supports rustc 1.56 and up.</em><br>
+                            <a href="https://github.com/dtolnay/quote/releases"
+                                rel="nofollow noopener noreferrer"><em>Release notes</em></a>
+                        </p>
+                        <br>
+                        <h2><a href="#syntax" id="user-content-syntax" rel="nofollow noopener noreferrer"></a>Syntax
+                        </h2>
+                        <p>The quote crate provides a <a href="https://docs.rs/quote/1.0/quote/macro.quote.html"
+                                rel="nofollow noopener noreferrer"><code>quote!</code></a> macro within which you can
+                            write Rust code
+                            that gets packaged into a <a
+                                href="https://docs.rs/proc-macro2/1.0/proc_macro2/struct.TokenStream.html"
+                                rel="nofollow noopener noreferrer"><code>TokenStream</code></a> and can be treated as
+                            data. You should
+                            think of <code>TokenStream</code> as representing a fragment of Rust source code.</p>
+                        <p>Within the <code>quote!</code> macro, interpolation is done with <code>#var</code>. Any type
+                            implementing the <a href="https://docs.rs/quote/1.0/quote/trait.ToTokens.html"
+                                rel="nofollow noopener noreferrer"><code>quote::ToTokens</code></a> trait can be
+                            interpolated. This includes
+                            most Rust primitive types as well as most of the syntax tree types from <a
+                                href="https://github.com/dtolnay/syn"
+                                rel="nofollow noopener noreferrer"><code>syn</code></a>.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-keyword">let</span> <span class="hljs-variable">tokens</span> = quote! {
+      <span class="hljs-keyword">struct</span> <span class="hljs-title class_">SerializeWith</span> #generics #where_clause {
+          value: &amp;<span class="hljs-string">'a #field_ty,
+          phantom: core::marker::PhantomData&lt;#item_ty&gt;,
+      }
+  
+      impl #generics serde::Serialize for SerializeWith #generics #where_clause {
+          fn serialize&lt;S&gt;(&amp;self, serializer: S) -&gt; Result&lt;S::Ok, S::Error&gt;
+          where
+              S: serde::Serializer,
+          {
+              #path(self.value, serializer)
+          }
+      }
+  
+      SerializeWith {
+          value: #value,
+          phantom: core::marker::PhantomData::&lt;#item_ty&gt;,
+      }
+  };
+  </span></code></pre>
+                        <br>
+                        <h2><a href="#repetition" id="user-content-repetition"
+                                rel="nofollow noopener noreferrer"></a>Repetition</h2>
+                        <p>Repetition is done using <code>#(...)*</code> or <code>#(...),*</code> similar to
+                            <code>macro_rules!</code>. This
+                            iterates through the elements of any variable interpolated within the repetition
+                            and inserts a copy of the repetition body for each one. The variables in an
+                            interpolation may be a <code>Vec</code>, slice, <code>BTreeSet</code>, or any
+                            <code>Iterator</code>.</p>
+                        <ul>
+                            <li><code>#(#var)*</code> — no separators</li>
+                            <li><code>#(#var),*</code> — the character before the asterisk is used as a separator</li>
+                            <li><code>#( struct #var; )*</code> — the repetition can contain other things</li>
+                            <li><code>#( #k =&gt; println!("{}", #v), )*</code> — even multiple interpolations</li>
+                        </ul>
+                        <p>Note that there is a difference between <code>#(#var ,)*</code> and
+                            <code>#(#var),*</code>—the latter
+                            does not produce a trailing comma. This matches the behavior of delimiters in
+                            <code>macro_rules!</code>.
+                        </p>
+                        <br>
+                        <h2><a href="#returning-tokens-to-the-compiler"
+                                id="user-content-returning-tokens-to-the-compiler"
+                                rel="nofollow noopener noreferrer"></a>Returning tokens to the compiler</h2>
+                        <p>The <code>quote!</code> macro evaluates to an expression of type
+                            <code>proc_macro2::TokenStream</code>. Meanwhile Rust procedural macros are expected to
+                            return the type <code>proc_macro::TokenStream</code>.
+                        </p>
+                        <p>The difference between the two types is that <code>proc_macro</code> types are entirely
+                            specific to procedural macros and cannot ever exist in code outside of a
+                            procedural macro, while <code>proc_macro2</code> types may exist anywhere including tests
+                            and non-macro code like main.rs and build.rs. This is why even the procedural
+                            macro ecosystem is largely built around <code>proc_macro2</code>, because that ensures the
+                            libraries are unit testable and accessible in non-macro contexts.</p>
+                        <p>There is a <a href="https://doc.rust-lang.org/std/convert/trait.From.html"
+                                rel="nofollow noopener noreferrer"><code>From</code></a>-conversion in both directions
+                            so returning the output of
+                            <code>quote!</code> from a procedural macro usually looks like <code>tokens.into()</code> or
+                            <code>proc_macro::TokenStream::from(tokens)</code>.
+                        </p>
+                        <br>
+                        <h2><a href="#examples" id="user-content-examples"
+                                rel="nofollow noopener noreferrer"></a>Examples</h2>
+                        <h3><a href="#combining-quoted-fragments" id="user-content-combining-quoted-fragments"
+                                rel="nofollow noopener noreferrer"></a>Combining quoted fragments</h3>
+                        <p>Usually you don't end up constructing an entire final <code>TokenStream</code> in one
+                            piece. Different parts may come from different helper functions. The tokens
+                            produced by <code>quote!</code> themselves implement <code>ToTokens</code> and so can be
+                            interpolated
+                            into later <code>quote!</code> invocations to build up a final result.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-keyword">let</span> <span class="hljs-variable">type_definition</span> = quote! {...};
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">methods</span> = quote! {...};
+  
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">tokens</span> = quote! {
+      #type_definition
+      #methods
+  };
+  </code></pre>
+                        <h3><a href="#constructing-identifiers" id="user-content-constructing-identifiers"
+                                rel="nofollow noopener noreferrer"></a>Constructing identifiers</h3>
+                        <p>Suppose we have an identifier <code>ident</code> which came from somewhere in a macro
+                            input and we need to modify it in some way for the macro output. Let's consider
+                            prepending the identifier with an underscore.</p>
+                        <p>Simply interpolating the identifier next to an underscore will not have the
+                            behavior of concatenating them. The underscore and the identifier will continue
+                            to be two separate tokens as if you had written <code>_ x</code>.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-comment">// incorrect</span>
+  quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">_</span>#ident = <span class="hljs-number">0</span>;
+  }
+  </code></pre>
+                        <p>The solution is to build a new identifier token with the correct value. As this
+                            is such a common case, the <code>format_ident!</code> macro provides a convenient utility
+                            for doing so correctly.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-keyword">let</span> <span class="hljs-variable">varname</span> = format_ident!(<span class="hljs-string">"_{}"</span>, ident);
+  quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">mut</span> #varname = <span class="hljs-number">0</span>;
+  }
+  </code></pre>
+                        <p>Alternatively, the APIs provided by Syn and proc-macro2 can be used to directly
+                            build the identifier. This is roughly equivalent to the above, but will not
+                            handle <code>ident</code> being a raw identifier.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-keyword">let</span> <span class="hljs-variable">concatenated</span> = <span class="hljs-built_in">format!</span>(<span class="hljs-string">"_{}"</span>, ident);
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">varname</span> = syn::Ident::<span class="hljs-title function_ invoke__">new</span>(&amp;concatenated, ident.<span class="hljs-title function_ invoke__">span</span>());
+  quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">mut</span> #varname = <span class="hljs-number">0</span>;
+  }
+  </code></pre>
+                        <h3><a href="#making-method-calls" id="user-content-making-method-calls"
+                                rel="nofollow noopener noreferrer"></a>Making method calls</h3>
+                        <p>Let's say our macro requires some type specified in the macro input to have a
+                            constructor called <code>new</code>. We have the type in a variable called
+                            <code>field_type</code> of
+                            type <code>syn::Type</code> and want to invoke the constructor.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-comment">// incorrect</span>
+  quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">value</span> = #field_type::<span class="hljs-title function_ invoke__">new</span>();
+  }
+  </code></pre>
+                        <p>This works only sometimes. If <code>field_type</code> is <code>String</code>, the expanded
+                            code
+                            contains <code>String::new()</code> which is fine. But if <code>field_type</code> is
+                            something like
+                            <code>Vec&lt;i32&gt;</code> then the expanded code is <code>Vec&lt;i32&gt;::new()</code>
+                            which is invalid syntax.
+                            Ordinarily in handwritten Rust we would write <code>Vec::&lt;i32&gt;::new()</code> but for
+                            macros
+                            often the following is more convenient.
+                        </p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes">quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">value</span> = &lt;#field_type&gt;::<span class="hljs-title function_ invoke__">new</span>();
+  }
+  </code></pre>
+                        <p>This expands to <code>&lt;Vec&lt;i32&gt;&gt;::new()</code> which behaves correctly.</p>
+                        <p>A similar pattern is appropriate for trait methods.</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes">quote! {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">value</span> = &lt;#field_<span class="hljs-keyword">type</span> <span class="hljs-title class_">as</span> core::default::<span class="hljs-built_in">Default</span>&gt;::<span class="hljs-title function_ invoke__">default</span>();
+  }
+  </code></pre>
+                        <br>
+                        <h2><a href="#hygiene" id="user-content-hygiene" rel="nofollow noopener noreferrer"></a>Hygiene
+                        </h2>
+                        <p>Any interpolated tokens preserve the <code>Span</code> information provided by their
+                            <code>ToTokens</code> implementation. Tokens that originate within a <code>quote!</code>
+                            invocation
+                            are spanned with <a
+                                href="https://docs.rs/proc-macro2/1.0/proc_macro2/struct.Span.html#method.call_site"
+                                rel="nofollow noopener noreferrer"><code>Span::call_site()</code></a>.
+                        </p>
+                        <p>A different span can be provided explicitly through the <a
+                                href="https://docs.rs/quote/1.0/quote/macro.quote_spanned.html"
+                                rel="nofollow noopener noreferrer"><code>quote_spanned!</code></a>
+                            macro.</p>
+                        <br>
+                        <h2><a href="#non-macro-code-generators" id="user-content-non-macro-code-generators"
+                                rel="nofollow noopener noreferrer"></a>Non-macro code generators</h2>
+                        <p>When using <code>quote</code> in a build.rs or main.rs and writing the output out to a
+                            file, consider having the code generator pass the tokens through <a
+                                href="https://github.com/dtolnay/prettyplease"
+                                rel="nofollow noopener noreferrer">prettyplease</a>
+                            before writing. This way if an error occurs in the generated code it is
+                            convenient for a human to read and debug.</p>
+                        <p>Be aware that no kind of hygiene or span information is retained when tokens are
+                            written to a file; the conversion from tokens to source code is lossy.</p>
+                        <p>Example usage in build.rs:</p>
+                        <pre><code class="language-rust hljs" data-highlighted="yes"><span class="hljs-keyword">let</span> <span class="hljs-variable">output</span> = quote! { ... };
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">syntax_tree</span> = syn::<span class="hljs-title function_ invoke__">parse2</span>(output).<span class="hljs-title function_ invoke__">unwrap</span>();
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">formatted</span> = prettyplease::<span class="hljs-title function_ invoke__">unparse</span>(&amp;syntax_tree);
+  
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">out_dir</span> = env::<span class="hljs-title function_ invoke__">var_os</span>(<span class="hljs-string">"OUT_DIR"</span>).<span class="hljs-title function_ invoke__">unwrap</span>();
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">dest_path</span> = Path::<span class="hljs-title function_ invoke__">new</span>(&amp;out_dir).<span class="hljs-title function_ invoke__">join</span>(<span class="hljs-string">"out.rs"</span>);
+  fs::<span class="hljs-title function_ invoke__">write</span>(dest_path, formatted).<span class="hljs-title function_ invoke__">unwrap</span>();
+  </code></pre>
+                        <br>
+                        <h4><a href="#license" id="user-content-license" rel="nofollow noopener noreferrer"></a>License
+                        </h4>
+                        <sup>
+                            Licensed under either of <a href="https://github.com/dtolnay/quote/blob/HEAD/LICENSE-APACHE"
+                                rel="nofollow noopener noreferrer">Apache License, Version
+                                2.0</a> or <a href="https://github.com/dtolnay/quote/blob/HEAD/LICENSE-MIT"
+                                rel="nofollow noopener noreferrer">MIT license</a> at your option.
+                        </sup>
+                        <br>
+                        <sub>
+                            Unless you explicitly state otherwise, any contribution intentionally submitted
+                            for inclusion in this crate by you, as defined in the Apache-2.0 license, shall
+                            be dual licensed as above, without any additional terms or conditions.
+                        </sub>
+
+
+                    </div>
+                </article>
+            </div>
+
+            <section class="_sidebar_1nmwg6 _sidebar_1ph5zq" aria-label="Crate metadata">
+                <div class="_metadata_1nmwg6">
+                    <h2 class="_heading_1nmwg6">Metadata</h2>
+
+                    <time class="_date_1nmwg6" datetime="2024-12-26T06:03:21+01:00">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100"
+                            height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)-->
+                            <path
+                                d="M35.156 56.25h-7.812A2.35 2.35 0 0125 53.906v-7.812a2.35 2.35 0 012.344-2.344h7.812a2.35 2.35 0 012.344 2.344v7.812a2.35 2.35 0 01-2.344 2.344zm21.094-2.344v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812a2.35 2.35 0 002.344 2.344h7.812a2.35 2.35 0 002.344-2.344zm18.75 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812a2.35 2.35 0 002.344 2.344h7.812A2.35 2.35 0 0075 53.906zm-18.75 18.75v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812A2.35 2.35 0 0046.094 75h7.812a2.35 2.35 0 002.344-2.344zm-18.75 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812A2.35 2.35 0 0025 64.844v7.812A2.35 2.35 0 0027.344 75h7.812a2.35 2.35 0 002.344-2.344zm37.5 0v-7.812a2.35 2.35 0 00-2.344-2.344h-7.812a2.35 2.35 0 00-2.344 2.344v7.812A2.35 2.35 0 0064.844 75h7.812A2.35 2.35 0 0075 72.656zm18.75-50.781v68.75c0 5.176-4.2 9.375-9.375 9.375h-68.75c-5.176 0-9.375-4.2-9.375-9.375v-68.75c0-5.176 4.2-9.375 9.375-9.375H25V2.344A2.35 2.35 0 0127.344 0h7.812A2.35 2.35 0 0137.5 2.344V12.5h25V2.344A2.35 2.35 0 0164.844 0h7.812A2.35 2.35 0 0175 2.344V12.5h9.375c5.176 0 9.375 4.2 9.375 9.375zm-9.375 67.578V31.25h-68.75v58.203c0 .645.527 1.172 1.172 1.172h66.406c.645 0 1.172-.527 1.172-1.172z">
+                            </path>
+                        </svg>
+                        <span class="ember-tooltip-target">
+                            4 days ago
+                            <div id="ember34" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </span>
+                    </time>
+
+                    <div class="_msrv_1nmwg6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path
+                                d="M508.52 249.75l-21.82-13.51c-.17-2-.34-3.93-.55-5.88l18.72-17.5a7.35 7.35 0 00-2.44-12.25l-24-9c-.54-1.88-1.08-3.78-1.67-5.64l15-20.83a7.35 7.35 0 00-4.79-11.54l-25.42-4.15c-.9-1.73-1.79-3.45-2.73-5.15l10.68-23.42a7.35 7.35 0 00-6.95-10.39l-25.82.91q-1.79-2.22-3.61-4.4L439 81.84a7.36 7.36 0 00-8.84-8.84L405 78.93q-2.17-1.83-4.4-3.61l.91-25.82a7.35 7.35 0 00-10.39-7L367.7 53.23c-1.7-.94-3.43-1.84-5.15-2.73l-4.15-25.42a7.35 7.35 0 00-11.54-4.79L326 35.26c-1.86-.59-3.75-1.13-5.64-1.67l-9-24a7.35 7.35 0 00-12.25-2.44l-17.5 18.72c-1.95-.21-3.91-.38-5.88-.55L262.25 3.48a7.35 7.35 0 00-12.5 0L236.24 25.3c-2 .17-3.93.34-5.88.55l-17.5-18.72a7.35 7.35 0 00-12.25 2.44l-9 24c-1.89.55-3.79 1.08-5.66 1.68l-20.82-15a7.35 7.35 0 00-11.54 4.79l-4.15 25.41c-1.73.9-3.45 1.79-5.16 2.73l-23.4-10.63a7.35 7.35 0 00-10.39 7l.92 25.81c-1.49 1.19-3 2.39-4.42 3.61L81.84 73A7.36 7.36 0 0073 81.84L78.93 107c-1.23 1.45-2.43 2.93-3.62 4.41l-25.81-.91a7.42 7.42 0 00-6.37 3.26 7.35 7.35 0 00-.57 7.13l10.66 23.41c-.94 1.7-1.83 3.43-2.73 5.16l-25.41 4.14a7.35 7.35 0 00-4.79 11.54l15 20.82c-.59 1.87-1.13 3.77-1.68 5.66l-24 9a7.35 7.35 0 00-2.44 12.25l18.72 17.5c-.21 1.95-.38 3.91-.55 5.88l-21.86 13.5a7.35 7.35 0 000 12.5l21.82 13.51c.17 2 .34 3.92.55 5.87l-18.72 17.5a7.35 7.35 0 002.44 12.25l24 9c.55 1.89 1.08 3.78 1.68 5.65l-15 20.83a7.35 7.35 0 004.79 11.54l25.42 4.15c.9 1.72 1.79 3.45 2.73 5.14l-10.63 23.43a7.35 7.35 0 00.57 7.13 7.13 7.13 0 006.37 3.26l25.83-.91q1.77 2.22 3.6 4.4L73 430.16a7.36 7.36 0 008.84 8.84l25.16-5.93q2.18 1.83 4.41 3.61l-.92 25.82a7.35 7.35 0 0010.39 6.95l23.43-10.68c1.69.94 3.42 1.83 5.14 2.73l4.15 25.42a7.34 7.34 0 0011.54 4.78l20.83-15c1.86.6 3.76 1.13 5.65 1.68l9 24a7.36 7.36 0 0012.25 2.44l17.5-18.72c1.95.21 3.92.38 5.88.55l13.51 21.82a7.35 7.35 0 0012.5 0l13.51-21.82c2-.17 3.93-.34 5.88-.56l17.5 18.73a7.36 7.36 0 0012.25-2.44l9-24c1.89-.55 3.78-1.08 5.65-1.68l20.82 15a7.34 7.34 0 0011.54-4.78l4.15-25.42c1.72-.9 3.45-1.79 5.15-2.73l23.42 10.68a7.35 7.35 0 0010.39-6.95l-.91-25.82q2.22-1.79 4.4-3.61l25.15 5.93a7.36 7.36 0 008.84-8.84L433.07 405q1.83-2.17 3.61-4.4l25.82.91a7.23 7.23 0 006.37-3.26 7.35 7.35 0 00.58-7.13l-10.68-23.42c.94-1.7 1.83-3.43 2.73-5.15l25.42-4.15a7.35 7.35 0 004.79-11.54l-15-20.83c.59-1.87 1.13-3.76 1.67-5.65l24-9a7.35 7.35 0 002.44-12.25l-18.72-17.5c.21-1.95.38-3.91.55-5.87l21.82-13.51a7.35 7.35 0 000-12.5zm-151 129.08A13.91 13.91 0 00341 389.51l-7.64 35.67a187.51 187.51 0 01-156.36-.74l-7.64-35.66a13.87 13.87 0 00-16.46-10.68l-31.51 6.76a187.38 187.38 0 01-16.26-19.21H258.3c1.72 0 2.89-.29 2.89-1.91v-54.19c0-1.57-1.17-1.91-2.89-1.91h-44.83l.05-34.35H262c4.41 0 23.66 1.28 29.79 25.87 1.91 7.55 6.17 32.14 9.06 40 2.89 8.82 14.6 26.46 27.1 26.46H407a187.3 187.3 0 01-17.34 20.09zm25.77 34.49A15.24 15.24 0 11368 398.08h.44a15.23 15.23 0 0114.8 15.24zm-225.62-.68a15.24 15.24 0 11-15.25-15.25h.45a15.25 15.25 0 0114.75 15.25zm-88.1-178.49l32.83-14.6a13.88 13.88 0 007.06-18.33L102.69 186h26.56v119.73h-53.6a187.65 187.65 0 01-6.08-71.58zm-11.26-36.06a15.24 15.24 0 0115.23-15.25H74a15.24 15.24 0 11-15.67 15.24zm155.16 24.49l.05-35.32h63.26c3.28 0 23.07 3.77 23.07 18.62 0 12.29-15.19 16.7-27.68 16.7zM399 306.71c-9.8 1.13-20.63-4.12-22-10.09-5.78-32.49-15.39-39.4-30.57-51.4 18.86-11.95 38.46-29.64 38.46-53.26 0-25.52-17.49-41.59-29.4-49.48-16.76-11-35.28-13.23-40.27-13.23h-198.9a187.49 187.49 0 01104.89-59.19l23.47 24.6a13.82 13.82 0 0019.6.44l26.26-25a187.51 187.51 0 01128.37 91.43l-18 40.57a14 14 0 007.09 18.33l34.59 15.33a187.12 187.12 0 01.4 32.54h-19.28c-1.91 0-2.69 1.27-2.69 3.13v8.82C421 301 409.31 305.58 399 306.71zM240 60.21A15.24 15.24 0 01255.21 45h.45A15.24 15.24 0 11240 60.21zM436.84 214a15.24 15.24 0 110-30.48h.44a15.24 15.24 0 01-.44 30.48z"
+                                fill="currentColor"></path>
+                        </svg>
+                        <span class="ember-tooltip-target">
+                            v1.56.0
+
+                            <div id="ember35" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="_license_1nmwg6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100"
+                            height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)-->
+                            <path
+                                d="M40 62.5h-.003c0-2.528.21-1.364-13.29-28.36-2.757-5.515-10.654-5.526-13.416 0C-.322 61.366.003 60.051.003 62.5H0C0 69.403 8.955 75 20 75s20-5.597 20-12.5zm-20-25L31.25 60H8.75zm79.997 25c0-2.528.21-1.364-13.29-28.36-2.757-5.515-10.654-5.526-13.416 0C59.678 61.366 60.003 60.051 60.003 62.5H60C60 69.403 68.955 75 80 75s20-5.597 20-12.5zM68.75 60L80 37.5 91.25 60zM82.5 80H55V33.945c3.673-1.608 6.431-4.918 7.248-8.945H82.5a2.5 2.5 0 002.5-2.5v-5a2.5 2.5 0 00-2.5-2.5H59.944c-2.282-3.019-5.867-5-9.944-5-4.077 0-7.662 1.981-9.944 5H17.5a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 002.5 2.5h20.252c.817 4.025 3.573 7.337 7.248 8.945V80H17.5a2.5 2.5 0 00-2.5 2.5v5a2.5 2.5 0 002.5 2.5h65a2.5 2.5 0 002.5-2.5v-5a2.5 2.5 0 00-2.5-2.5z">
+                            </path>
+                        </svg>
+                        <span>
+                            <a href="https://choosealicense.com/licenses/mit" rel="noreferrer">
+                                MIT
+                            </a>
+                            <small>OR</small>
+                            <a href="https://choosealicense.com/licenses/apache-2.0" rel="noreferrer">
+                                Apache-2.0
+                            </a>
+                        </span>
+                    </div>
+
+                    <div class="_bytes_1nmwg6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 100 100" width="100"
+                            height="100"><!--! Font Awesome Free 5.15.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)-->
+                            <path
+                                d="M50.002 0c-10.356 0-18.75 8.394-18.75 18.75 0 2.203.45 4.287 1.148 6.25H20.633c-2.819 0-5.29 2.059-6.03 5.023L.337 87.082C-1.291 93.588 3.199 100 9.38 100h81.24c6.18 0 10.67-6.412 9.043-12.918L85.4 30.023C84.658 27.057 82.19 25 79.371 25H67.604c.697-1.963 1.148-4.047 1.148-6.25C68.752 8.394 60.357 0 50.002 0zM50 12.498a6.258 6.258 0 016.25 6.25 6.258 6.258 0 01-6.25 6.25 6.258 6.258 0 01-6.25-6.25 6.258 6.258 0 016.25-6.25zM23.908 34.793h52.41l13.693 54.809H10.279z">
+                            </path>
+                        </svg>
+                        30.5 KiB
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="_heading_1nmwg6">Install</h2>
+
+                    <!---->
+                    <!---->
+                    <p class="_copy-help_1asgho">Run the following Cargo command in your project directory:</p>
+
+                    <button class="_copy-button_1asgho" title="Copy command to clipboard" type="button">
+                        <span class="_selectable_1asgho">cargo add quote</span>
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="_copy-icon_1asgho">
+                            <path
+                                d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z">
+                            </path>
+                            <path
+                                d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z">
+                            </path>
+                        </svg>
+                    </button>
+
+                    <p class="_copy-help_1asgho">Or add the following line to your Cargo.toml:</p>
+
+                    <button class="_copy-button_1asgho" title="Copy Cargo.toml snippet to clipboard" type="button">
+
+                        <span class="_selectable_1asgho">quote = "1.0.38"</span>
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="_copy-icon_1asgho">
+                            <path
+                                d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z">
+                            </path>
+                            <path
+                                d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="_links_1nmwg6">
+                    <!---->
+                    <div>
+                        <h2 class="_title_iw1br3 _heading_1nmwg6">Documentation</h2>
+                        <div class="_content_iw1br3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"
+                                fill="currentColor" class="_icon_iw1br3">
+                                <path
+                                    d="M488.6 250.2L392 214V105.5c0-15-9.3-28.4-23.4-33.7l-100-37.5c-8.1-3.1-17.1-3.1-25.3 0l-100 37.5c-14.1 5.3-23.4 18.7-23.4 33.7V214l-96.6 36.2C9.3 255.5 0 268.9 0 283.9V394c0 13.6 7.7 26.1 19.9 32.2l100 50c10.1 5.1 22.1 5.1 32.2 0l103.9-52 103.9 52c10.1 5.1 22.1 5.1 32.2 0l100-50c12.2-6.1 19.9-18.6 19.9-32.2V283.9c0-15-9.3-28.4-23.4-33.7zM358 214.8l-85 31.9v-68.2l85-37v73.3zM154 104.1l102-38.2 102 38.2v.6l-102 41.4-102-41.4v-.6zm84 291.1l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6zm240 112l-85 42.5v-79.1l85-38.8v75.4zm0-112l-102 41.4-102-41.4v-.6l102-38.2 102 38.2v.6z">
+                                </path>
+                            </svg>
+
+                            <a class="_link_iw1br3" href="https://docs.rs/quote/1.0.38">
+                                docs.rs/quote/1.0.38
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="_title_iw1br3 _heading_1nmwg6">Repository</h2>
+                        <div class="_content_iw1br3">
+                            <svg height="512" width="512" viewBox="0 0 512 512" fill="currentColor"
+                                xmlns="http://www.w3.org/2000/svg" class="_icon_iw1br3">
+                                <path
+                                    d="M256 0C114.61 0 0 114.61 0 256c0 113.1 73.345 209.05 175.07 242.91 12.81 2.35 17.48-5.56 17.48-12.35 0-6.06-.22-22.17-.35-43.53-71.21 15.46-86.23-34.32-86.23-34.32-11.645-29.58-28.429-37.45-28.429-37.45-23.244-15.88 1.76-15.56 1.76-15.56 25.699 1.8 39.209 26.38 39.209 26.38 22.84 39.12 59.92 27.82 74.51 21.27 2.32-16.54 8.93-27.82 16.25-34.22-56.84-6.45-116.611-28.43-116.611-126.52 0-27.94 9.981-50.8 26.351-68.7-2.64-6.47-11.42-32.5 2.5-67.74 0 0 21.5-6.889 70.41 26.24 20.41-5.69 42.32-8.52 64.09-8.61 21.73.1 43.64 2.92 64.09 8.61 48.87-33.129 70.32-26.24 70.32-26.24 13.97 35.24 5.19 61.27 2.55 67.74 16.41 17.9 26.32 40.76 26.32 68.7 0 98.35-59.86 119.99-116.89 126.32 9.19 7.91 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.22 0 6.85 4.6 14.82 17.6 12.32C438.72 464.96 512 369.08 512 256 512 114.61 397.37 0 255.98 0">
+                                </path>
+                            </svg>
+
+                            <a class="_link_iw1br3" href="https://github.com/dtolnay/quote">
+                                github.com/dtolnay/quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="_heading_1nmwg6">Owners</h2>
+                    <ul class="_list_1ipg5d _detailed_1ipg5d" role="list">
+                        <li class="">
+                            <a id="ember36" class="ember-view _link_1ipg5d" href="/users/dtolnay">
+                                <img src="https://avatars.githubusercontent.com/u/1940490?v=4&amp;s=64" width="32"
+                                    height="32" alt="David Tolnay (dtolnay)" title="David Tolnay" decoding="async"
+                                    class="_avatar_1ipg5d" aria-hidden="true">
+                                <span class="_name_1ipg5d">David Tolnay</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="_heading_1nmwg6">Categories</h2>
+                    <ul class="_categories_1nmwg6">
+                        <li>
+                            <a id="ember37" class="ember-view"
+                                href="/categories/development-tools::procedural-macro-helpers">Procedural macro
+                                helpers</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <a class="_playground-button_1nmwg6 _button_1nmwg6 _yellow-button_g91299 _button_g91299 _small_g91299 ember-tooltip-target"
+                        href="https://play.rust-lang.org/?edition=2021&amp;code=use%20quote%3B%0A%0Afn%20main()%20%7B%0A%20%20%20%20%2F%2F%20try%20using%20the%20%60quote%60%20crate%20here%0A%7D"
+                        target="_blank" rel="noopener noreferrer">
+                        Try on Rust Playground
+
+                        <div id="ember38" class="ember-tooltip-base ember-view">
+                            <div>
+                                <!---->
+                            </div>
+                        </div>
+                    </a>
+                    <!---->
+                    <a id="ember39"
+                        class="ember-view _report-button_1nmwg6 _button_1nmwg6 _red-button_g91299 _button_g91299 _small_g91299"
+                        href="/support?crate=quote&amp;inquire=crate-violation">
+                        Report crate
+                    </a>
+                </div>
+            </section>
+        </div>
+        <div class="_crate-downloads_1ph5zq">
+            <div class="_stats_1ph5zq">
+                <h3>Stats Overview</h3>
+                <div class="_stat_1ph5zq">
+                    <span class="_num_1ph5zq">
+                        <svg width="32" height="33" viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg">
+                            <circle fill="#FFF" cx="16" cy="16" r="16"></circle>
+                            <path fill="#B13B89" d="M10 21h12v2H10zM14 10h4v5h3l-5 4.996L11 15h3z"></path>
+                        </svg>
+                        <span class="_num__align_1ph5zq">478.531.562</span>
+                    </span>
+                    <span class="_stat-description_1ph5zq _small_1oyocj">Downloads all time</span>
+                </div>
+                <div class="_stat_1ph5zq">
+                    <span class="_num_1ph5zq">
+                        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16 32.107c8.837 0 16-7.164 16-16 0-8.837-7.163-16-16-16s-16 7.163-16 16c0 8.836 7.163 16 16 16z"
+                                fill="#FFF"></path>
+                            <path
+                                d="M20.247 12.548L16 10l-4.224 2.535 4.247 2.452 4.224-2.439zM21 14.423l-4 2.31V21.4l4-2.4v-4.577zm-10-.027V19l4 2.4v-4.695l-4-2.309zM16 8l7 4v8l-7 4-7-4v-8l7-4z"
+                                fill="#B13B89"></path>
+                        </svg>
+                        <span class="_num__align_1ph5zq">86</span>
+                    </span>
+                    <span class="_stat-description_1ph5zq _small_1oyocj">Versions published</span>
+                </div>
+            </div>
+            <div class="_graph_1ph5zq">
+                <h4>Downloads over the last 90 days</h4>
+                <div class="_toggle-stacked_1ph5zq">
+                    <span class="">Display as </span>
+                    <div class="_container_j1fcml">
+                        <button class="_button_x5sxkq _trigger_1ph5zq" type="button">
+                            <span class="_trigger-label_1ph5zq">
+                                Stacked
+                            </span>
+                            <span class="_arrow_x5sxkq"></span>
+                        </button>
+                        <div class="_dropdown_16sxmz">
+                            <ul class="_list_12bw3u">
+                                <li class="_item_1xureq">
+                                    <button class="_dropdown-button_1ph5zq" type="button">
+                                        Stacked
+                                    </button>
+                                </li>
+                                <li class="_item_1xureq">
+                                    <button class="_dropdown-button_1ph5zq" type="button">
+                                        Unstacked
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="_wrapper_27k3er _graph-data_1ph5zq">
+                    <canvas style="display: block; box-sizing: border-box; height: 398px; width: 681px;" width="1362"
+                        height="796"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

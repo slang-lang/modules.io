@@ -140,6 +140,7 @@ main {
 #container {
     background-color: #f9f7ec;
     height: 100%;
+    overflow: auto;
     width: 100%;
 
     display: -webkit-box;
