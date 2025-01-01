@@ -68,3 +68,8 @@ function OnLogoutSuccess( event )
 // User event handling
 ///////////////////////////////////////////////////////////////////////////////
 
+
+function Search()
+{
+    mHeader.Search();
+}

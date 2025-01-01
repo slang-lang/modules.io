@@ -1,0 +1,99 @@
+<template id="template-search-result">
+    <li>
+        <div class="_crate-row_1unvv5">
+            <div class="_description-box_1unvv5">
+                <div>
+                    <a class="_name_1unvv5" onclick="mPlugin.ViewCrate( '{{CRATE}}' );">
+                        {{CRATE}}
+                    </a>
+                    <span class="_version_1unvv5">{{VERSION}}</span>
+                    <button class="_copy-button_1unvv5 _button-reset_g91299"
+                        title="Copy Cargo.toml snippet to clipboard" type="button">
+
+                        <svg width="24" height="25" viewBox="0 0 24 25" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg" alt="Copy Cargo.toml snippet to clipboard">
+                            <path
+                                d="M18 20h2v3c0 1-1 2-2 2H2c-.998 0-2-1-2-2V5c0-.911.755-1.667 1.667-1.667h5A3.323 3.323 0 0110 0a3.323 3.323 0 013.333 3.333h5C19.245 3.333 20 4.09 20 5v8.333h-2V9H2v14h16v-3zM3 7h14c0-.911-.793-1.667-1.75-1.667H13.5c-.957 0-1.75-.755-1.75-1.666C11.75 2.755 10.957 2 10 2s-1.75.755-1.75 1.667c0 .911-.793 1.666-1.75 1.666H4.75C3.793 5.333 3 6.09 3 7z">
+                            </path>
+                            <path
+                                d="M4 19h6v2H4zM12 11H4v2h8zM4 17h4v-2H4zM15 15v-3l-4.5 4.5L15 21v-3l8.027-.032L23 15z">
+                            </path>
+                        </svg>
+
+                    </button>
+                </div>
+                <div class="_description_1unvv5 _small_1oyocj">
+                    {{DESCRIPTION}}
+                </div>
+            </div>
+            <div class="_stats_1unvv5">
+                <div class="_downloads_1unvv5">
+                    <svg width="32" height="33" viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg"
+                        class="_download-icon_1unvv5">
+                        <circle fill="#FFF" cx="16" cy="16" r="16"></circle>
+                        <path fill="#B13B89" d="M10 21h12v2H10zM14 10h4v5h3l-5 4.996L11 15h3z"></path>
+                    </svg>
+                    <span>
+                        <span class="ember-tooltip-target">
+                            All-Time:
+                            <div id="ember27" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </span>
+                        {{DOWNLOADS_ALL_TIME}}
+                    </span>
+                </div>
+                <div class="_recent-downloads_1unvv5">
+                    <svg width="32" height="33" viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg"
+                        class="_download-icon_1unvv5">
+                        <circle fill="#FFF" cx="16" cy="16" r="16"></circle>
+                        <path fill="#B13B89" d="M10 21h12v2H10zM14 10h4v5h3l-5 4.996L11 15h3z"></path>
+                    </svg>
+                    <span>
+                        <span class="ember-tooltip-target">
+                            Recent:
+                            <div id="ember28" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </span>
+                        {{DOWNLOADS_RECENT}}
+                    </span>
+                </div>
+                <div class="_updated-at_1unvv5">
+                    <svg width="32" height="32" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12.062 10.692l1.623.808-.504-4.2-3.685 2.115 1.504.749c-.991.919-2.039 1.336-3.565 1.336-1.87-.095-3.242-.962-4.202-2.37A7.239 7.239 0 012.18 6.72l-1.101.206c.035.19.116.505.256.903.232.658.55 1.316.972 1.933 1.147 1.68 2.827 2.743 5.1 2.858 2.026 0 3.384-.628 4.654-1.928zM2.183 2.768L.56 1.96l.504 4.2 3.684-2.116-1.503-.748c.99-.919 2.039-1.337 3.565-1.337 1.87.095 3.242.963 4.202 2.37a7.239 7.239 0 011.052 2.41l1.101-.205a8.347 8.347 0 00-1.228-2.836C10.79 2.018 9.11.954 6.837.84c-2.026 0-3.384.628-4.654 1.928z"
+                            fill="#B84D94"></path>
+                    </svg>
+                    <span>
+                        <span class="ember-tooltip-target">
+                            Updated:
+                            <div id="ember29" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </span>
+                        <time datetime="2024-12-26T06:03:21+01:00" class="ember-tooltip-target">
+                            {{LAST_UPDATE}}
+                            <div id="ember30" class="ember-tooltip-base ember-view">
+                                <div>
+                                    <!---->
+                                </div>
+                            </div>
+                        </time>
+                    </span>
+                </div>
+            </div>
+            <ul class="_quick-links_1unvv5">
+                <!---->
+                <li><a href="{{LINK_DOCUMENTATION}}">Documentation</a></li>
+                <li><a href="{{LINK_REPOSITORY}}">Repository</a></li>
+            </ul>
+        </div>
+    </li>
+</template>

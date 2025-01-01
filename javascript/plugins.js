@@ -95,11 +95,11 @@ function OnLoad()
     mElNavigation  = $( "#navigation" );
     mElUserMessage = $( "#user-message" );
 
-    // if ( mElFooter ) LoadPluginInto( "footer", mElFooter );
-    // if ( mElHeader ) LoadPluginInto( "header", mElHeader );
+    if ( mElFooter ) LoadPluginInto( "footer", mElFooter );
+    if ( mElHeader ) LoadPluginInto( "header", mElHeader );
     // if ( mElNavigation ) LoadPluginInto( "navigation", mElNavigation );
 
-    LoadPlugin( "mainView", OnLoadReady );
+    LoadPlugin( "start", OnLoadReady );
 }
 
 function OnSuccess( event )

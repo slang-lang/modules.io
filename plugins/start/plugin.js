@@ -24,42 +24,17 @@ mPlugin = {
         LoadingFinished();
     },
 
-    Fetch: function( url, callbackSuccess, callbackError = OnErrorIgnored, callbackAbort = OnAbortIgnored ) {
-        fetch( url, {
-            Method: "GET",
-            Headers: {
-            //   Accept: "application.json",
-                "Content-Type": "text/html"
-            },
-            Body: null,
-            Cache: "default"
-        } )
-        .then( response => {
-            if ( !response.ok ) {
-                throw new Error( "HTTP error " + response.status );
-            }
-
-            return response.text();
-        } )
-        .then( data => {
-            callbackSuccess( data );
-        } )
-        .catch( error => {
-            callbackError( error );
-        } );
-    },
-
     QueryModules: function() {
         Parameters.clear();
         
         get( "summary", ( response ) => {
 
-            mPlugin.RenderModule( response );
+            mPlugin.RenderModules( response );
 
         } );
     },
 
-    RenderModule: function( data ) {
+    RenderModules: function( data ) {
         var tplModule = Templates.clone( "template-crate-list-item" );
 
         {   // just updated

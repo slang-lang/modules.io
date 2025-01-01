@@ -11,21 +11,6 @@ var Settings;
 var Templates;
 var Translations;
 
-// const RootComponent = {
-//     data() {
-//         return {
-//             languages: [],
-//             plugin: null,
-//             renderComponent: true,
-//             settings: null,
-//             stats: {
-//                 pageLoadedAt: null
-//             },
-//             template: null
-//         }
-//     }
-// };
-
 const RootComponent = {
     data() {
         return cachedEntities;
@@ -77,7 +62,6 @@ function __main__()
 
     Cache.Retrieve();
 
-    // Conversions.Constructor();
     History.Constructor();
     Notifications.Constructor();
     Refresh.Constructor();
