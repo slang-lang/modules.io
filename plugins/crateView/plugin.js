@@ -60,7 +60,7 @@ mPlugin = {
             .bind( "LINK_REPOSITORY", null )
             .bind( "MAINTAINER", null )
             .bind( "MAX_VERSION", module.max_version )
-            .bind( "NUM_VERSIONS", null )
+            .bind( "NUM_VERSIONS", module.versions.length )
             .bind( "README", null )
             .bind( "VERSION", module.newest_version )
             .str();

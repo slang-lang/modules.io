@@ -5,40 +5,29 @@ var Cache = {
 
     // instance members
     // here you can add your instance members that you want to fetch and cache
-    time: null,
+    summary: null,
     validated: false,
 
     Constructor: function() {
         this.Retrieve();
     },
 
-    FetchDateTime: function( callback ) {
-        Parameters.clear();
+    FetchSummary: function( callback ) {
+        get( "summary", ( response ) => {
 
-        fetch( "https://bitbroker.michaeladelmann.at/api/v1/time/" )
-            .then( response => {
-                if ( !response.ok ) {
-                    throw new Error( "HTTP error " + response.status );
-                }
+            Cache.summary = response;
 
-                return response.json();
-            } )
-            .then( json => {
-                this.time = response;
-
-                if ( callback ) {
-                    callback();
-                }
-            } )
-            .catch( function() {
+            if ( callback ) {
                 callback();
-            } );
+            }
+
+        } );
     },
 
     Reload: function( OnProgress ) {
         // fetch data which does not depend on anything loaded yet
 
-        this.FetchDateTime( OnProgress );   // this is an example of asynchronous data loading during startup
+        this.FetchSummary( OnProgress );   // this is an example of asynchronous data loading during startup
     },
 
     Retrieve: function() {
@@ -51,7 +40,7 @@ var Cache = {
             return;
         }
 
-        this.time  = cache.time;
+        this.summary   = cache.summary;
         this.validated = true;
     },
 

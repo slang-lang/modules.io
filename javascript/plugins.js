@@ -99,7 +99,9 @@ function OnLoad()
     if ( mElHeader ) LoadPluginInto( "header", mElHeader );
     // if ( mElNavigation ) LoadPluginInto( "navigation", mElNavigation );
 
-    LoadPlugin( "start", OnLoadReady );
+	History.Clear();
+
+    LoadPluginWithHistory( "start", OnLoadReady );
 }
 
 function OnSuccess( event )
