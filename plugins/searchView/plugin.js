@@ -7,14 +7,13 @@ mPlugin = {
     // instance members
 
     OnLoad: function() {
-        mElResults = $( "#results" );
-        mElSearch  = $( "#search" );
+        mElResults       = $( "#results" );
+        mElSearch        = $( "#search" );
+        mElSearchResultsHeader = $( "#search_results_header" );
     },
 
     OnLoadReady: function() {
         this.QueryModules();
-
-        LoadingFinished();
     },
 
     QueryModules: function() {
@@ -23,8 +22,13 @@ mPlugin = {
 
         get( "crates", ( response ) => {
 
+            mElSearchResultsHeader.innerHTML = Templates.clone( "template-search-results-header" )
+                .bind( "SEARCH", mElSearch.value )
+                .str();
+
             mPlugin.RenderModules( response );
-            
+
+            LoadingFinished();
         } );
     },
 
@@ -33,12 +37,15 @@ mPlugin = {
 
         var listItems = "";
         for ( var idx = 0; idx < modules.crates.length; ++idx ) {
-            var entry = modules.crates[ idx ];
+            var module = modules.crates[ idx ];
 
             listItems += tplResult.clone()
-                            .bind( "CRATE", entry.name )
-                            .bind( "DESCRIPTION", entry.description )
-                            .bind( "VERSION", entry.max_version )
+                            .bind( "CRATE", module.name )
+                            .bind( "DESCRIPTION", module.description )
+                            .bind( "DOWNLOADS_ALL_TIME", module.downloads )
+                            .bind( "DOWNLOADS_RECENT", module.recent_downloads )
+                            .bind( "LAST_UPDATE", module.updated_at )
+                            .bind( "VERSION", module.newest_version )
                             .str();
         }
 
