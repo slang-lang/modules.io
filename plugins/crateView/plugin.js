@@ -21,7 +21,7 @@ mPlugin = {
         Parameters.add( "crate", crate );
         Parameters.add( "version", version );
 
-        get( "crates", ( response ) => {
+        get( "crates/", ( response ) => {
 
             if ( response.crates.length == 1 ) {
                 mPlugin.RenderModule( response.crates[ 0 ] );
