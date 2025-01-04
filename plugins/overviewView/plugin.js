@@ -85,7 +85,7 @@ mPlugin = {
     
             elElement.innerHTML = listItems;
         }
-        {   // new crates
+        {   // new modules
             var listItems = "";
     
             for ( idx = 0; idx < data.new_crates.length; idx++ ) {

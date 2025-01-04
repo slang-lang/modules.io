@@ -659,6 +659,7 @@ noscript {
         --main-layout-padding: var(--space-s);
         display: flex;
         flex-direction: column;
+        margin: auto;
         padding: var(--main-layout-padding)
 }
 
