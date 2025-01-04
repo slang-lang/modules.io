@@ -17,7 +17,7 @@ mHeader = {
     },
 
     OnLoadReady: function() {
-        LoadingFinished();
+        // nothing to do here
     },
 
     ScrollToTop: function() {
@@ -25,21 +25,13 @@ mHeader = {
     },
 
     Search: function() {
-        var elSearch = $( "#search" );
-        if ( !elSearch.value ) {
+        mElSearch = $( "#search" );
+        if ( !mElSearch.value ) {
             return;
         }
 
         LoadPluginWithHistory( "searchView" );
-    },
-
-    // ShowNavigation: function() {
-    //     Navigation.Show();
-    // },
-
-    // ToggleNavigation: function() {
-    //     Navigation.Toggle();
-    // }
+    }
 
 };
 

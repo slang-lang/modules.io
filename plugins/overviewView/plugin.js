@@ -27,7 +27,7 @@ mPlugin = {
     QueryModules: function() {
         Parameters.clear();
         
-        get( "summary", ( response ) => {
+        get( "summary/", ( response ) => {
 
             mPlugin.RenderModules( response );
 

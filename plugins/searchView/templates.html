@@ -1,12 +1,13 @@
 <template id="template-search-result">
-    <li>
+    <li onclick="mPlugin.ViewCrate( '{{CRATE}}' );">
         <div class="_crate-row_1unvv5">
             <div class="_description-box_1unvv5">
                 <div>
-                    <a class="_name_1unvv5" onclick="mPlugin.ViewCrate( '{{CRATE}}' );">
+                    <a class="_name_1unvv5">
                         {{CRATE}}
                     </a>
                     <span class="_version_1unvv5">{{VERSION}}</span>
+                    <!--
                     <button class="_copy-button_1unvv5 _button-reset_g91299"
                         title="Copy Cargo.toml snippet to clipboard" type="button">
 
@@ -20,6 +21,7 @@
                             </path>
                         </svg>
                     </button>
+                    -->
                 </div>
                 <div class="_description_1unvv5 _small_1oyocj">
                     {{DESCRIPTION}}

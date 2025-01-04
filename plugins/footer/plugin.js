@@ -1,21 +1,18 @@
 
-mPlugin = {
+mFooter = {
 
     // consts
-    TEMPLATE_VIEW: "TEMPLATE",
+    FOOTER_VIEW: "FOOTER",
 
     // instance members
 
     OnLoad: function() {
-        // your plugin startup code goes here...
+        // nothing to do here
     },
 
     OnLoadReady: function() {
-        // your plugin startup done code goes here...
-
-        LoadingFinished();
+        // nothing to do here
     },
 
 };
 
-mCurrentPlugin = mPlugin;
