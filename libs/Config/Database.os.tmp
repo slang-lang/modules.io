@@ -1,0 +1,13 @@
+
+public namespace Config {
+	public namespace Database {
+
+		public string Database const = "${DATABASE_SCHEMA}";
+		public string Host const     = "${DATABASE_IP}";
+		public string Password const = "${DATABASE_PASSWORD}";
+		public int Port const        = ${DATABASE_PORT};
+		public string User const     = "${DATABASE_USER}";
+
+	}
+}
+
