@@ -19,6 +19,15 @@ function OnLoadReady()
     Globals.Admin = false;
     Globals.Debug = false;
 
+    var token = GetURLParameter( "token" );
+    if ( token ) {
+        Cache.token = token;
+        Cache.Store();
+
+        Redirect( "" );
+        return;
+    }
+
     API.Constructor( "", "api", "https", "v1" );
 }
 
@@ -68,6 +77,16 @@ function OnLogoutSuccess( event )
 // User event handling
 ///////////////////////////////////////////////////////////////////////////////
 
+
+function RefreshUserName()
+{
+    var elLogin = $( "#login" );
+    if ( elLogin ) {
+        elLogin.innerHTML = Templates.clone( "template-user-login" )
+            .bind( "USERNAME", Cache.userInfo ? Cache.userInfo.name : "LOGIN" )
+            .str();
+    }
+}
 
 function Search()
 {

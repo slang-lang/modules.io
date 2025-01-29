@@ -7,23 +7,16 @@ mHeader = {
     // instance members
     pluginName: "header",
 
-    Constructor: function() {
-        this.OnLoad();
-    },
-
-    OnLoad: function() {
-        mElHeader = $( "#header" );
-        mElSearch = $( "#search" );
-    },
-
     OnLoadReady: function() {
-        // nothing to do here
+        mElHeader = $( "#header" );
+        mElLogin  = $( "#login" );
+        mElSearch = $( "#search" );
 
-        Translations.translate( mElHeader );
+        this.Refresh();
     },
 
     Login: function() {
-        LoadPluginWithHistory( "loginView" );
+        Redirect( "/login" );
     },
 
     ScrollToTop: function() {
@@ -37,7 +30,15 @@ mHeader = {
         }
 
         LoadPluginWithHistory( "searchView" );
-    }
+    },
+
+    Username: function() {
+        var elLogin = $( "#login" );
+
+        if ( elLogin.innerText == "LOGIN" ) {
+            mHeader.Login();
+        }
+    },
 
 };
 
