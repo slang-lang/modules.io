@@ -63,3 +63,19 @@ LANGUAGE_SELECTION: Sprachwahl
 PRICE: Preis
 SIDE: Ordertyp
 
+[Section: loginView]
+DO_IT_NOW: Jetzt loslegen!
+FORGOT_YOUR_PASSWORD: Passwort vergessen?
+NOT_YET_REGISTERED: Noch nicht registriert?
+PLEASE_SIGN_IN: Bitte einloggen
+SIGN_IN: Einloggen
+STAY_LOGGED_IN: Eingeloggt bleiben
+
+[Section: registerView]
+REGISTER: Benutzerkonto anlegen
+REGISTRATION_ERROR: Fehler bei der Erstellung Ihres Benutzerkontos.
+REGISTRATION_SUCCESS: Erfolgreich registriert! Sie erhalten Ihre Zugangsdaten in Kürze per Mail.
+
+[Section: resetPasswordView]
+RESET_PASSWORD_ERROR: Fehler beim Zurücksetzen Ihres Passworts.
+RESET_PASSWORD_SUCCESS: Ihr Passwort wurde erfolgreich zurückgesetzt. Wir schicken Ihnen in Kürze ein neues Passwort zum Einloggen per Mail. Danach können Sie in den Einstellungen Ihr neues Passwort festlegen.

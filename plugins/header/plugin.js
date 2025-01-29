@@ -18,6 +18,12 @@ mHeader = {
 
     OnLoadReady: function() {
         // nothing to do here
+
+        Translations.translate( mElHeader );
+    },
+
+    Login: function() {
+        LoadPluginWithHistory( "loginView" );
     },
 
     ScrollToTop: function() {
