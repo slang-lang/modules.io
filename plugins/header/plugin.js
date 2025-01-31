@@ -38,6 +38,9 @@ mHeader = {
         if ( elLogin.innerText == "LOGIN" ) {
             mHeader.Login();
         }
+        else {
+            LoadPluginWithHistory( "settingsView" );
+        }
     },
 
 };

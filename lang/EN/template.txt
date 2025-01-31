@@ -84,3 +84,16 @@ REGISTRATION_SUCCESS: Registration successful! We will email you the login data.
 [Section: resetPasswordView]
 RESET_PASSWORD_ERROR: An error occurred while resetting your password.
 RESET_PASSWORD_SUCCESS: Your password has been reset. We will email you a new password for login. Then you can choose a new password in Settings.
+
+[Section: settingsView]
+ACCOUNT_DELETE_CONFIRMATION: Do you really want to delete your account? This cannot be reverted.
+API_KEY: Internal key
+DELETE_ACCOUNT: Delete user account
+FIRST_NAME: First name
+LANGUAGE_SELECTION: Language selection
+LAST_NAME: Last name
+RECEIVE_LOGIN_NOTIFICATIONS: Notifications at login
+RECEIVE_MAIL_NOTIFICATIONS: Email notifications
+REGENERATE: Renew
+REGENERATE_SUCCESS: Internal key for renewed.
+USER_PROFILE: User profile
