@@ -35,7 +35,7 @@ mPlugin = {
 
 		this.RenderData( Cache.settings );
 
-		this.UpdateUI();
+		LoadingFinished();
 	},
 
 	OnLoginFailed: function( message ) {
@@ -51,7 +51,7 @@ mPlugin = {
 	},
 
 	GenerateApiKey: function() {
-		Account.GenerateApiKey( mPlugin.Refresh );
+		Account.GenerateApiKey( mPlugin.LoadData );
 	},
 
 	LoadData: function() {
@@ -74,33 +74,16 @@ mPlugin = {
 		History.Refresh();
 	},
 
-	Register: function() {
-		Parameters.clear();
-
-		LoadPlugin( "registerView" );
-	},
-
 	RenderData: function( settings ) {
 		if ( !settings ) {
 			return;
 		}
 
 		mElApiKey.value                      = settings.apiKey;
-		mElEmail                             = Cache.userInfo.name;
-		mElReceiveLoginNotifications.checked = settings.sendLoginNotifications;
-		mElReceiveMailNotifications.checked  = settings.sendMailNotifications;
-		mElUserProfile.value                 = Translations.token( settings.userProfile );
-
-		this.UpdateUI();
-	},
-
-	UpdateUI: function() {
-		if ( !mElReceiveMailNotifications.checked ) {
-			mElReceiveLoginNotifications.checked = false;
-		}
-
-		mElReceiveLoginNotifications.disabled = !mElReceiveMailNotifications.checked;
-		//mElReceiveMailNotifications.disabled = !mElReceiveMailNotifications.checked;
+		mElEmail                             = Cache.userInfo.login;
+		//mElReceiveLoginNotifications.checked = settings.sendLoginNotifications;
+		//mElReceiveMailNotifications.checked  = settings.sendMailNotifications;
+		//mElUserProfile.value                 = Translations.token( settings.userProfile );
 	},
 
 	UpdateUser: function() {

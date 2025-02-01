@@ -1,28 +1,40 @@
-
 var Cache = {
-
     // CONSTS
 
     // instance members
     // here you can add your instance members that you want to fetch and cache
+    languages: [],
+    settings: null,
     summary: null,
     token: null,
     userInfo: null,
     validated: false,
 
-    Constructor: function() {
+    Constructor: function () {
         this.Retrieve();
     },
 
-    FetchSummary: function( callback ) {
-        get( "summary", ( response ) => {
+    FetchSettings: function( callback ) {
+        Parameters.clear();
 
-            Cache.summary = response;
+        get( "admin/users/settings/", ( json ) => {
+
+            this.settings = json.settings;
 
             if ( callback ) {
                 callback();
             }
 
+        }, OnError, OnAbortIgnored );
+    },
+
+    FetchSummary: function( callback ) {
+        get( "summary", ( response ) => {
+            Cache.summary = response;
+
+            if ( callback ) {
+                callback();
+            }
         } );
     },
 
@@ -32,13 +44,12 @@ var Cache = {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
-                    "Authorization": "Bearer " + Cache.token,
-                    "User-Agent": "modules.slang-lang.org"
-                }
+                    Authorization: "Bearer " + Cache.token,
+                    "User-Agent": "modules.slang-lang.org",
+                },
             } )
             .then( ( response ) => response.json() )
             .then( ( json ) => {
-
                 console.log( json );
 
                 Cache.userInfo = json;
@@ -46,7 +57,6 @@ var Cache = {
                 if ( callback ) {
                     callback();
                 }
-
             } );
         }
     },
@@ -54,11 +64,14 @@ var Cache = {
     Reload: function( OnProgress ) {
         // fetch data which does not depend on anything loaded yet
 
-        this.FetchUserInfo( OnProgress );
         this.FetchSummary( OnProgress );
+
+        // fetch private data
+        this.FetchUserInfo( OnProgress );
+        this.FetchSettings( OnProgress );
     },
 
-    Retrieve: function() {
+    Retrieve: function () {
         if ( !localStorage.cache ) {
             return;
         }
@@ -75,6 +88,5 @@ var Cache = {
 
     Store: function() {
         localStorage.cache = JSON.stringify( this );
-    }
-
+    },
 };

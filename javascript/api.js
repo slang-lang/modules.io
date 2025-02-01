@@ -1,4 +1,9 @@
 
+function execute( pluginFunc, callback_success = OnSuccess, callback_error = OnErrorIgnored, callback_abort = OnAbortIgnored )
+{
+    return API.execute( pluginFunc, callback_success, callback_error, callback_abort );
+}
+
 // HTTP methods
 function get( url, callbackSuccess = OnSuccess, callbackError = OnErrorIgnored, callbackAbort = OnAbortIgnored )
 {
