@@ -8,6 +8,7 @@ public object VModulesRecord {
    public string Keywords;
    public string LastUpdate;
    public string Name;
+   public string Owner;
    public string Repository;
    public string Version;
 
@@ -44,6 +45,7 @@ public object VModulesRecord {
        Keywords = cast<string>( mysql_get_field_value( result, "keywords" ) );
        LastUpdate = cast<string>( mysql_get_field_value( result, "last_update" ) );
        Name = cast<string>( mysql_get_field_value( result, "name" ) );
+       Owner = cast<string>( mysql_get_field_value( result, "owner" ) );
        Repository = cast<string>( mysql_get_field_value( result, "repository" ) );
        Version = cast<string>( mysql_get_field_value( result, "version" ) );
     }
@@ -55,12 +57,13 @@ public object VModulesRecord {
        Keywords = cast<string>( mysql_get_field_value( result, "keywords" ) );
        LastUpdate = cast<string>( mysql_get_field_value( result, "last_update" ) );
        Name = cast<string>( mysql_get_field_value( result, "name" ) );
+       Owner = cast<string>( mysql_get_field_value( result, "owner" ) );
        Repository = cast<string>( mysql_get_field_value( result, "repository" ) );
        Version = cast<string>( mysql_get_field_value( result, "version" ) );
     }
 
     public string =operator( string ) const {
-        return "VModulesRecord { NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Repository + "', '" + Version + "' }";
+        return "VModulesRecord { NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Owner + "', '" + Repository + "', '" + Version + "' }";
     }
 
     private int DB const;
