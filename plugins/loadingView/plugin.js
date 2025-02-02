@@ -6,7 +6,7 @@ mLoadingPlugin = {
 
     // instance members
     OnProgress: null,
-    WaitForTicks: 3,        // configure # of ticks which you expect before loading the first real plugin
+    WaitForTicks: 1,        // configure # of ticks which you expect before loading the first real plugin
 
     OnLoad: function() {
         mElProgress = $( "#progress" );
@@ -39,7 +39,7 @@ mLoadingPlugin = {
         }
         // fetch extended data
         else if ( progress < 51 ) {
-            progressIncrease = 50 / 2;     // second half of progress
+            progressIncrease = 50 / 1;     // second half of progress
 
             progress = 50 + progressIncrease;
 
