@@ -63,10 +63,36 @@ mPlugin = {
 	QueryModules: function() {
 		Parameters.clear();
 
-		get( "admin/modules/", ( response ) => {
+		get( "admin/modules/query/", ( response ) => {
 
 			mPlugin.RenderModules( response.modules );
 
+		} );
+	},
+
+	Publish: function() {
+		var architecture = $( "input[name='architecture']" );
+		var keywords     = $( "input[name='keywords']" );
+		var name         = $( "input[name='name']" );
+		var version      = $( "input[name='version']" );
+
+		Parameters.clear();
+		Parameters.add( "architecture", architecture.value );
+		Parameters.add( "keywords", keywords.value );
+		Parameters.add( "name", name.value );
+		Parameters.add( "repository", "" );
+		Parameters.add( "version", version.value );
+
+		post( "admin/modules/create/", ( response ) => {
+
+			if ( response.message == "success" ) {
+				notifySuccess( "New module published successfully!" );
+
+				LoadPlugin( "settingsView" );
+			}
+			else {
+				notifyError( "Failed to pushlish module!" );
+			}
 		} );
 	},
 
@@ -90,6 +116,7 @@ mPlugin = {
 						.bind( "ARCHITECTURE", module.architecture )
 						.bind( "DOWNLOADS", module.downloads )
 						.bind( "LAST_UPDATE", module.updated_at )
+						.bind( "KEYWORDS", module.keywords )
 						.bind( "NAME", module.name )
 						.bind( "TYPE", module.type )
 						.bind( "VERSION", module.max_version )

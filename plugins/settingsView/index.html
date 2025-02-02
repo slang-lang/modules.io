@@ -7,13 +7,41 @@
 				<thead>
 					<th>NAME</th>
 					<th>ARCHITECTURE</th>
-					<th>ADDED</th>
-					<th>LAST_UPDATE</th>
+					<!-- <th>ADDED</th> -->
+					<th>KEYWORDS</th>
+					<!-- <th>LAST UPDATE</th> -->
 					<th>VERSION</th>
 					<th>DOWNLOADS</th>
 				</thead>
 				<tbody>
 				</tbody>
+				<tr>
+					<td>
+						<input name="name" placeholder="Name" />
+					</td>
+					<td>
+						<input name="architecture" placeholder="Architecture" value="generic" />
+					</td>
+					<!--
+					<td>
+						<input placeholder="Added" disabled />
+					</td>
+					-->
+					<td>
+						<input name="keywords" placeholder="Keywords" />
+					</td>
+					<!--
+					<td>
+						<input placeholder="Last update" disabled />
+					</td>
+					-->
+					<td>
+						<input name="version" placeholder="Version" value="0.0.0" disabled />
+					</td>
+					<td>
+						<button class="btn btn-success" onclick="mPlugin.Publish();">Publish</button>
+					</td>
+				</tr>
 			</table>
 		</div>
 
