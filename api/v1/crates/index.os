@@ -64,7 +64,7 @@ private void provideModules( TModulesCollection collection, bool queryVersions =
             Json.AddElement( "categories", "null" );
             Json.AddElement( "created_at", record.Added );
             Json.AddElement( "default_version", record.Version );
-            Json.AddElement( "description", record.Description );
+            Json.AddElement( "description", "null" );
             Json.AddElement( "documentation", "null" );
             Json.AddElement( "downloads", record.Downloads );
             Json.AddElement( "exact_match", "false" );

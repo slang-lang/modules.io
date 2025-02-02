@@ -36,7 +36,7 @@ private void retrieveJustUpdatedModules() throws
             Json.AddElement( "categories", "null" );
             Json.AddElement( "created_at", record.Added );
             Json.AddElement( "default_version", record.Version );
-            Json.AddElement( "description", record.Description );
+            Json.AddElement( "description", "null" );
             Json.AddElement( "documentation", "null" );
             Json.AddElement( "downloads", record.Downloads );
             Json.AddElement( "exact_match", "false" );
@@ -80,7 +80,7 @@ private void retrieveMostDownloadedModules() throws
             Json.AddElement( "categories", "null" );
             Json.AddElement( "created_at", record.Added );
             Json.AddElement( "default_version", record.Version );
-            Json.AddElement( "description", record.Description );
+            Json.AddElement( "description", "null" );
             Json.AddElement( "documentation", "null" );
             Json.AddElement( "downloads", record.Downloads );
             Json.AddElement( "exact_match", "false" );
@@ -114,7 +114,7 @@ private void retrieveMostRecentlyDownloadedModules() throws
             Json.AddElement( "categories", "null" );
             Json.AddElement( "created_at", record.Added );
             Json.AddElement( "default_version", record.Version );
-            Json.AddElement( "description", record.Description );
+            Json.AddElement( "description", "null" );
             Json.AddElement( "documentation", "null" );
             Json.AddElement( "downloads", record.Downloads );
             Json.AddElement( "exact_match", "false" );
@@ -148,7 +148,7 @@ private void retrieveNewModules() throws
             Json.AddElement( "categories", "null" );
             Json.AddElement( "created_at", record.Added );
             Json.AddElement( "default_version", record.Version );
-            Json.AddElement( "description", record.Description );
+            Json.AddElement( "description", "null" );
             Json.AddElement( "documentation", "null" );
             Json.AddElement( "downloads", record.Downloads );
             Json.AddElement( "exact_match", "false" );
