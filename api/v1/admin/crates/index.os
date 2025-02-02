@@ -20,8 +20,7 @@ private void retrieveAllModulesByOwner( string owner ) throws
 {
     var query = "SELECT *
                    FROM v_modules
-                  WHERE owner = '" + owner + "'
-                  GROUP BY name ORDER BY name ASC, version DESC";
+                  WHERE owner = '" + owner + "'";
     // print( query );
     var collection = new TModulesCollection( Database.Handle, query );
 
