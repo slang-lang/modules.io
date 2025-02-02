@@ -70,7 +70,7 @@ private void provideModules( TModulesCollection collection, bool queryVersions =
             Json.AddElement( "exact_match", "false" );
             Json.AddElement( "homepage", "https://www.slang-lang.org/" );
             Json.AddElement( "id", record.Name );
-            Json.AddElement( "keywords", "null" );
+            Json.AddElement( "keywords", record.Keywords );
             Json.AddElement( "max_stable_version", record.Version );
             Json.AddElement( "max_version", record.Version );
             Json.AddElement( "name", record.Name );

@@ -4,14 +4,13 @@
 
 // project imports
 import libs.API.Utils;
-import libs.Consts.Pagination;
 import libs.Database.Tables.Modules;
 import libs.MainProcessJsonDB;
 
 
 public void Process( int, string )
 {
-    var owner   = API.retrieve( "identifier" );
+    var owner = API.retrieve( "identifier" );
 
     retrieveAllModulesByOwner( owner );
 }
@@ -22,6 +21,7 @@ private void retrieveAllModulesByOwner( string owner ) throws
                    FROM v_modules
                   WHERE owner = '" + owner + "'";
     // print( query );
+
     var collection = new TModulesCollection( Database.Handle, query );
 
     provideModules( collection );
@@ -29,7 +29,7 @@ private void retrieveAllModulesByOwner( string owner ) throws
 
 private void provideModules( TModulesCollection collection ) throws
 {
-    Json.BeginArray( "crates" );
+    Json.BeginArray( "modules" );
     foreach ( TModulesRecord record : collection ) {
         Json.BeginObject();
             Json.AddElement( "architecture", record.Architecture );
@@ -43,7 +43,7 @@ private void provideModules( TModulesCollection collection ) throws
             Json.AddElement( "exact_match", "false" );
             Json.AddElement( "homepage", "https://www.slang-lang.org/" );
             Json.AddElement( "id", record.Name );
-            Json.AddElement( "keywords", "null" );
+            Json.AddElement( "keywords", record.Keywords );
             Json.AddElement( "max_stable_version", record.Version );
             Json.AddElement( "max_version", record.Version );
             Json.AddElement( "name", record.Name );

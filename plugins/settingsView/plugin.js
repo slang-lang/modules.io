@@ -63,9 +63,9 @@ mPlugin = {
 	QueryModules: function() {
 		Parameters.clear();
 
-		get( "admin/crates/", ( response ) => {
+		get( "admin/modules/", ( response ) => {
 
-			mPlugin.RenderModules( response.crates );
+			mPlugin.RenderModules( response.modules );
 
 		} );
 	},
