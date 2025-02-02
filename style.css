@@ -371,6 +371,10 @@ input[type=number] {
     cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer!important;
+}
+
 .show_if_large {}
 
 .show_if_small {

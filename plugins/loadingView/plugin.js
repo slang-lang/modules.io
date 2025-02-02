@@ -24,7 +24,7 @@ mLoadingPlugin = {
     },
 
     OnLoadingFinished: function() {
-        LoadPluginWithHistory( "start" );
+        LoadPluginWithHistory( "overviewView" );
     },
 
     OnTick: function() {
@@ -57,6 +57,7 @@ mLoadingPlugin = {
         if ( progress >= 100 ) {
             // store loaded data in localStorage
             Cache.Store();
+            RefreshUserName();
 
             // hide loading screen
             mLoadingPlugin.OnProgress = null;

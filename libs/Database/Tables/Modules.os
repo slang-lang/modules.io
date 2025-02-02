@@ -4,11 +4,11 @@ import System.Collections.Vector;
 public object TModulesRecord {
    public string Added;
    public string Architecture;
-   public string Description;
    public int Downloads;
    public string Keywords;
    public string LastUpdate;
    public string Name;
+   public string Owner;
    public string Repository;
    public string Version;
 
@@ -29,7 +29,7 @@ public object TModulesRecord {
     }
 
     public void insert() modify throws {
-        var query = "INSERT INTO modules ( `added`, `architecture`, `description`, `downloads`, `keywords`, `last_update`, `name`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Description + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Repository + "', '" + Version + "' )";
+        var query = "INSERT INTO modules ( `added`, `architecture`, `downloads`, `keywords`, `last_update`, `name`, `owner`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Owner + "', '" + Repository + "', '" + Version + "' )";
 
         var error = mysql_query( DB, query );
         if ( error ) {
@@ -38,7 +38,7 @@ public object TModulesRecord {
     }
 
     public void insertIgnore() modify throws {
-        var query = "INSERT IGNORE INTO modules ( `added`, `architecture`, `description`, `downloads`, `keywords`, `last_update`, `name`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Description + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Repository + "', '" + Version + "' )";
+        var query = "INSERT IGNORE INTO modules ( `added`, `architecture`, `downloads`, `keywords`, `last_update`, `name`, `owner`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Owner + "', '" + Repository + "', '" + Version + "' )";
 
         var error = mysql_query( DB, query );
         if ( error ) {
@@ -47,7 +47,7 @@ public object TModulesRecord {
     }
 
     public void insertOrUpdate() modify throws {
-        var query = "INSERT INTO modules ( `added`, `architecture`, `description`, `downloads`, `keywords`, `last_update`, `name`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Description + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Repository + "', '" + Version + "' ) ON DUPLICATE KEY UPDATE `added` = NULLIF('" + Added + "', ''), `architecture` = '" + Architecture + "', `description` = '" + Description + "', `downloads` = '" + Downloads + "', `keywords` = '" + Keywords + "', `last_update` = NULLIF('" + LastUpdate + "', ''), `name` = '" + Name + "', `repository` = '" + Repository + "', `version` = '" + Version + "'";
+        var query = "INSERT INTO modules ( `added`, `architecture`, `downloads`, `keywords`, `last_update`, `name`, `owner`, `repository`, `version` ) VALUES ( NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Owner + "', '" + Repository + "', '" + Version + "' ) ON DUPLICATE KEY UPDATE `added` = NULLIF('" + Added + "', ''), `architecture` = '" + Architecture + "', `downloads` = '" + Downloads + "', `keywords` = '" + Keywords + "', `last_update` = NULLIF('" + LastUpdate + "', ''), `name` = '" + Name + "', `owner` = '" + Owner + "', `repository` = '" + Repository + "', `version` = '" + Version + "'";
 
         var error = mysql_query( DB, query );
         if ( error ) {
@@ -68,11 +68,11 @@ public object TModulesRecord {
 
        Added = cast<string>( mysql_get_field_value( result, "added" ) );
        Architecture = cast<string>( mysql_get_field_value( result, "architecture" ) );
-       Description = cast<string>( mysql_get_field_value( result, "description" ) );
        Downloads = cast<int>( mysql_get_field_value( result, "downloads" ) );
        Keywords = cast<string>( mysql_get_field_value( result, "keywords" ) );
        LastUpdate = cast<string>( mysql_get_field_value( result, "last_update" ) );
        Name = cast<string>( mysql_get_field_value( result, "name" ) );
+       Owner = cast<string>( mysql_get_field_value( result, "owner" ) );
        Repository = cast<string>( mysql_get_field_value( result, "repository" ) );
        Version = cast<string>( mysql_get_field_value( result, "version" ) );
     }
@@ -80,17 +80,17 @@ public object TModulesRecord {
     public void loadByResult( int result ) modify {
        Added = cast<string>( mysql_get_field_value( result, "added" ) );
        Architecture = cast<string>( mysql_get_field_value( result, "architecture" ) );
-       Description = cast<string>( mysql_get_field_value( result, "description" ) );
        Downloads = cast<int>( mysql_get_field_value( result, "downloads" ) );
        Keywords = cast<string>( mysql_get_field_value( result, "keywords" ) );
        LastUpdate = cast<string>( mysql_get_field_value( result, "last_update" ) );
        Name = cast<string>( mysql_get_field_value( result, "name" ) );
+       Owner = cast<string>( mysql_get_field_value( result, "owner" ) );
        Repository = cast<string>( mysql_get_field_value( result, "repository" ) );
        Version = cast<string>( mysql_get_field_value( result, "version" ) );
     }
 
     public string =operator( string ) const {
-        return "TModulesRecord { NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Description + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Repository + "', '" + Version + "' }";
+        return "TModulesRecord { NULLIF('" + Added + "', ''), '" + Architecture + "', '" + Downloads + "', '" + Keywords + "', NULLIF('" + LastUpdate + "', ''), '" + Name + "', '" + Owner + "', '" + Repository + "', '" + Version + "' }";
     }
 
     private int DB const;

@@ -1,0 +1,90 @@
+<div class="container">
+	<div class="form-row g-3">
+		<div class="row g-2">
+			<h4 class="mb-3 translation" token="MODULES">MODULES</h4>
+
+			<table id="modules">
+				<thead>
+					<th>NAME</th>
+					<th>ARCHITECTURE</th>
+					<!-- <th>ADDED</th> -->
+					<th>KEYWORDS</th>
+					<!-- <th>LAST UPDATE</th> -->
+					<th>VERSION</th>
+					<th>DOWNLOADS</th>
+				</thead>
+				<tbody>
+				</tbody>
+				<tr>
+					<td>
+						<input name="name" placeholder="Name" />
+					</td>
+					<td>
+						<input name="architecture" placeholder="Architecture" value="generic" />
+					</td>
+					<!--
+					<td>
+						<input placeholder="Added" disabled />
+					</td>
+					-->
+					<td>
+						<input name="keywords" placeholder="Keywords" />
+					</td>
+					<!--
+					<td>
+						<input placeholder="Last update" disabled />
+					</td>
+					-->
+					<td>
+						<input name="version" placeholder="Version" value="0.0.0" disabled />
+					</td>
+					<td>
+						<button class="btn btn-success" onclick="mPlugin.Publish();">Publish</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<hr class="my-4">
+
+		<div class="row g-2">
+			<h4 class="mb-3 translation" token="API_KEY">API_KEY</h4>
+			<div class="col-sm-12">
+				<input id="api_key" class="form-control" disabled />
+			</div>
+			<div class="col-sm-4">
+				<button class="w-100 btn btn-primary translation" style="cursor: pointer;"
+					onclick="mPlugin.GenerateApiKey();" token="REGENERATE">REGENERATE</button>
+			</div>
+			<div class="col-sm-8"></div>
+		</div>
+
+		<hr class="my-4">
+
+		<div class="row g-2" style="margin-top: 20px">
+			<div class="col-sm-4">
+				<button class="w-100 btn btn-danger translation" style="float: right" onclick="mPlugin.Logout();"
+					token="LOGOUT">LOGOUT</button>
+			</div>
+		</div>
+
+		<hr class="my-4">
+
+		<div class="row g-2" style="margin-top: 20px">
+			<div class="col-sm-4">
+				<button class="w-100 btn btn-danger translation" style="float: right" onclick="mPlugin.DeleteAccount();"
+					token="DELETE_ACCOUNT">Delete account</button>
+			</div>
+		</div>
+
+		<br>
+		<br>
+
+		<div id="app_version" style="position: absolute; bottom: 10px;">
+			<span>
+				<label class="translation" token="APP_VERSION"></label>
+				<p>v{{APP_VERSION}}</p>
+			</span>
+		</div>
+	</div>
+</div>
