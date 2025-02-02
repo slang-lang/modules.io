@@ -10,19 +10,12 @@ mPlugin = {
 	OnDeleteSuccess: function( event ) {
 		Parameters.clear();
 
-		LoadPlugin( "loginView" );
-	},
-
-	OnKeyPress: function( event ) {
-		Login();
+		LoadPlugin( "start" );
 	},
 
 	OnLoad: function( event ) {
-		mElApiKey                    = $( "#api_key" );
-		mElEmail                     = $( "#email" );
-		mElReceiveLoginNotifications = $( "#receive_login_notifications" );
-		mElReceiveMailNotifications  = $( "#receive_mail_notifications" );
-		mElUserProfile               = $( "#user_profile" );
+		mElApiKey  = $( "#api_key" );
+		mElModules = $( "#modules > tbody" );
 
 		mPlugin.OnLoadReady();
 	},
@@ -34,12 +27,9 @@ mPlugin = {
 									.str();
 
 		this.RenderData( Cache.settings );
+		this.QueryModules();
 
 		LoadingFinished();
-	},
-
-	OnLoginFailed: function( message ) {
-		mElMessage.textContent = message;
 	},
 
 	DeleteAccount: function() {
@@ -51,10 +41,14 @@ mPlugin = {
 	},
 
 	GenerateApiKey: function() {
-		Account.GenerateApiKey( mPlugin.LoadData );
+		Account.GenerateApiKey( mPlugin.QueryData );
 	},
 
-	LoadData: function() {
+	Logout: function() {
+		Account.Logout( OnLogoutSuccess );
+	},
+
+	QueryData: function() {
 		Parameters.clear();
 
 		get( "admin/users/settings/", ( response ) => {
@@ -66,12 +60,14 @@ mPlugin = {
 		} );
 	},
 
-	Logout: function() {
-		Account.Logout( OnLogoutSuccess );
-	},
+	QueryModules: function() {
+		Parameters.clear();
 
-	Refresh: function() {
-		History.Refresh();
+		get( "admin/crates/", ( response ) => {
+
+			mPlugin.RenderModules( response.crates );
+
+		} );
 	},
 
 	RenderData: function( settings ) {
@@ -79,26 +75,28 @@ mPlugin = {
 			return;
 		}
 
-		mElApiKey.value                      = settings.apiKey;
-		mElEmail                             = Cache.userInfo.login;
-		//mElReceiveLoginNotifications.checked = settings.sendLoginNotifications;
-		//mElReceiveMailNotifications.checked  = settings.sendMailNotifications;
-		//mElUserProfile.value                 = Translations.token( settings.userProfile );
+		mElApiKey.value = settings.apiKey;
 	},
 
-	UpdateUser: function() {
-		if ( !IsFormValid( "frmUserSettings" ) ) {
-			return;
+	RenderModules: function( modules ) {
+		var list = "";
+		var moduleTpl = Templates.clone( "template-module" );
+
+		for ( var idx = 0; idx < modules.length; ++idx ) {
+			var module = modules[ idx ];
+
+			list += moduleTpl.clone()
+						.bind( "ADDED", module.created_at )
+						.bind( "ARCHITECTURE", module.architecture )
+						.bind( "DOWNLOADS", module.downloads )
+						.bind( "LAST_UPDATE", module.updated_at )
+						.bind( "NAME", module.name )
+						.bind( "TYPE", module.type )
+						.bind( "VERSION", module.max_version )
+						.str();
 		}
 
-		Parameters.clear();
-
-		Parameters.add( "receive_login_notifications", mElReceiveLoginNotifications.checked );
-		Parameters.add( "receive_mail_notifications", mElReceiveMailNotifications.checked );
-
-		execute( "admin/updateUser.os", () => {
-			Cache.FetchSettings();
-		} );
+		mElModules.innerHTML = list;
 	}
 
 };

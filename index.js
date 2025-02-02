@@ -18,28 +18,29 @@ function OnLoadReady()
     Globals.Admin = false;
     Globals.Debug = false;
 
-    API.Constructor("", "api", "https", "v1");
+    API.Constructor( "", "api", "https", "v1" );
 
-    var token = GetURLParameter("token");
-    if (token) {
+    var token = GetURLParameter( "token" );
+    if ( token ) {
         Cache.token = token;
         Cache.Store();
 
-        Redirect("");
+        Redirect( "" );
         return;
     }
-    else if (Cache.token && !Account.IsLoggedIn()) {
-        Cache.FetchUserInfo(() => {
-            Account.GithubLogin(() => {
-                Redirect("");
-            });
-        });
+    else if ( Cache.token && !Account.IsLoggedIn() ) {
+        Cache.FetchUserInfo( () => {
+            Account.GithubLogin( () => {
+                Redirect( "" );
+            } );
+        } );
 
         return;
     }
 }
 
-function OnLoginFailed(event) {
+function OnLoginFailed( event )
+{
     //alert("OnLoginFailed()");
 
     // your code goes here...
@@ -47,7 +48,8 @@ function OnLoginFailed(event) {
     notifyError("LOGIN_FAILED");
 }
 
-function OnLoginSuccess(event) {
+function OnLoginSuccess( event )
+{
     //alert("OnLoginSuccess()");
 
     // your code goes here...
@@ -55,7 +57,8 @@ function OnLoginSuccess(event) {
     LoadPlugin("start");
 }
 
-function OnLogout() {
+function OnLogout( event )
+{
     //alert("OnLogout()");
 
     // your code goes here...
@@ -63,17 +66,19 @@ function OnLogout() {
     notifySuccess("LOGOUT_SUCCESS");
 }
 
-function OnLogoutFailed(event) {
+function OnLogoutFailed( event )
+{
     //alert("OnLogoutFailed()");
 
     // your code goes here...
 }
 
-function OnLogoutSuccess(event) {
+function OnLogoutSuccess( event )
+{
     //alert( "OnLogoutSuccess()" );
 
     // your code goes here...
-    Redirect("?");
+    Redirect( "/" );
 
     //LoadPlugin( "loginView" );
 }
@@ -81,15 +86,17 @@ function OnLogoutSuccess(event) {
 // User event handling
 ///////////////////////////////////////////////////////////////////////////////
 
-function RefreshUserName() {
-    var elLogin = $("#login");
-    if (elLogin) {
+function RefreshUserName()
+{
+    var elLogin = $( "#login" );
+    if ( elLogin ) {
         elLogin.innerHTML = Templates.clone("template-user-login")
             .bind("USERNAME", Cache.userInfo ? Cache.userInfo.name : "LOGIN")
             .str();
     }
 }
 
-function Search() {
+function Search()
+{
     mHeader.Search();
 }
