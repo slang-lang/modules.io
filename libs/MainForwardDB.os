@@ -1,4 +1,4 @@
-#!/usr/local/bin/webscript
+#!/usr/bin/env webscript
 
 // library imports
 import libCurl;
