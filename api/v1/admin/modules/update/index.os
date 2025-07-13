@@ -6,10 +6,10 @@
 import libs.API.Utils;
 import libs.Database.Tables.Modules;
 import libs.Modules.Modules;
-import libs.MainProcessJsonDB;
+import libs.MainExecuteDB;
 
 
-public void Process( int, string )
+public bool Execute( int, string )
 {
     var module = new TModulesRecord() {
         module.Architecture = API.retrieve( "architecture" );
@@ -20,6 +20,6 @@ public void Process( int, string )
         module.Version      = API.retrieve( "version", "" );
     }
 
-    Modules.Update( module );
+    return Modules.Update( module );
 }
 
