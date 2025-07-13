@@ -2,9 +2,10 @@
 mPlugin = {
 
     // consts
-    START_VIEW: "start",
+    OVERVIEW_VIEW: "overviewView",
 
     // instance members
+    pluginName: "overviewView",
 
     OnLoad: function() {
         this.mElModules = $( "#modules" );

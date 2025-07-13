@@ -86,13 +86,15 @@ mPlugin = {
 		post( "admin/modules/create/", ( response ) => {
 
 			if ( response.message == "success" ) {
-				notifySuccess( "New module published successfully!" );
+				notifySuccess( "New module published successfully." );
 
-				LoadPlugin( "settingsView" );
+				// LoadPlugin( "settingsView" );
+				mPlugin.QueryModules();
 			}
 			else {
-				notifyError( "Failed to pushlish module!" );
+				notifyError( "Failed to publish module!" );
 			}
+
 		} );
 	},
 

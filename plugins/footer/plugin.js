@@ -2,9 +2,11 @@
 mFooter = {
 
     // consts
-    FOOTER_VIEW: "FOOTER",
+    FOOTER_VIEW: "footer",
 
     // instance members
+    pluginName: "footer",
+
 
     OnLoad: function() {
         // nothing to do here

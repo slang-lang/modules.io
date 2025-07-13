@@ -2,7 +2,7 @@
 mHeader = {
 
     // consts
-    HEADER: "header",
+    HEADER_VIEW: "header",
 
     // instance members
     pluginName: "header",

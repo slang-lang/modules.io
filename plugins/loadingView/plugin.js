@@ -5,6 +5,7 @@ mLoadingPlugin = {
     LOADING_VIEW: "loadingView",
 
     // instance members
+    pluginName: "loadingView",
     OnProgress: null,
     WaitForTicks: 1,        // configure # of ticks which you expect before loading the first real plugin
 

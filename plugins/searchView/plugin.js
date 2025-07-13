@@ -5,6 +5,7 @@ mPlugin = {
     SEARCH_VIEW: "SEARCH",
 
     // instance members
+    pluginName: "searchView",
 
     OnLoad: function() {
         mElResults       = $( "#results" );

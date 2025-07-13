@@ -2,9 +2,10 @@
 mPlugin = {
 
     // consts
-    START_VIEW: "start",
+    MAIN_VIEW: "mainView",
 
     // instance members
+    pluginName: "mainView",
 
     OnLoad: function() {
         this.mElModules = $( "#modules" );
@@ -17,28 +18,28 @@ mPlugin = {
     },
 
     Fetch: function( url, callbackSuccess, callbackError = OnErrorIgnored, callbackAbort = OnAbortIgnored ) {
-     fetch( url, {
-        Method: "GET",
-        Headers: {
-        //   Accept: "application.json",
-          "Content-Type": "text/html"
-        },
-        Body: null,
-        Cache: "default"
-      } )
-        .then( response => {
-            if ( !response.ok ) {
-                throw new Error( "HTTP error " + response.status );
-            }
+        fetch( url, {
+            Method: "GET",
+            Headers: {
+                //   Accept: "application.json",
+                "Content-Type": "text/html"
+            },
+            Body: null,
+            Cache: "default"
+        } )
+            .then( response => {
+                if ( !response.ok ) {
+                    throw new Error( "HTTP error " + response.status );
+                }
 
-            return response.text();
-        } )
-        .then( data => {
-            callbackSuccess( data );
-        } )
-        .catch( error => {
-            callbackError( error );
-        } );
+                return response.text();
+            } )
+            .then( data => {
+                callbackSuccess( data );
+            } )
+            .catch( error => {
+                callbackError( error );
+            } );
     },
 
     QueryModules: function() {

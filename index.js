@@ -41,34 +41,34 @@ function OnLoadReady()
 
 function OnLoginFailed( event )
 {
-    //alert("OnLoginFailed()");
+    //alert( "OnLoginFailed()" );
 
     // your code goes here...
 
-    notifyError("LOGIN_FAILED");
+    notifyError( "LOGIN_FAILED" );
 }
 
 function OnLoginSuccess( event )
 {
-    //alert("OnLoginSuccess()");
+    //alert( "OnLoginSuccess()" );
 
     // your code goes here...
 
-    LoadPlugin("start");
+    LoadPlugin( "start" );
 }
 
 function OnLogout( event )
 {
-    //alert("OnLogout()");
+    //alert( "OnLogout()" );
 
     // your code goes here...
 
-    notifySuccess("LOGOUT_SUCCESS");
+    notifySuccess( "LOGOUT_SUCCESS" );
 }
 
 function OnLogoutFailed( event )
 {
-    //alert("OnLogoutFailed()");
+    //alert( "OnLogoutFailed()" );
 
     // your code goes here...
 }

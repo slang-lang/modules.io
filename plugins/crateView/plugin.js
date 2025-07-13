@@ -2,9 +2,10 @@
 mPlugin = {
 
     // consts
-    CRATE_VIEW: "CRATE",
+    CRATE_VIEW: "createView",
 
     // instance members
+    pluginName: "crateView",
 
     OnLoad: function() {
         mElModule = $( "#module" );
